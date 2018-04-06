@@ -1,0 +1,117 @@
+<link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../../paper-item/paper-item.html">
+<link rel="import" href="../../paper-listbox/paper-listbox.html">
+<link rel="import" href="../../paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../paper-item/paper-item-shared-styles.html">
+<link rel="import" href="../../neon-animation/web-animations.html">
+<link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../../polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../../iron-ajax/iron-ajax.html">
+<link rel="import" href="account-item.html">
+<dom-module id="account-selector">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+      }
+    </style>
+    <style is=custom-style>
+      /* small screen */
+      .account-selector{
+        padding: 0em;
+        width: 100%;
+      }
+      .account-selector-button {
+        display: flex;
+        /* min-width: 50vw; */
+        box-shadow: var(--account-selector-box-shadow);
+      }
+      /* desktop */
+      /* @media (min-width: 799px) {
+        .account-selector-button {
+          min-width: 41vw;
+        }
+      } */
+      .dropdown-content {
+        /* padding: 0px;
+        padding-right: 1.5em; */
+      }
+      .drop-down-arrow{
+        margin-top: 1.5em;
+      }
+      
+    </style>
+    <paper-menu-button class="account-selector"
+      vertical-offset="74" 
+      no-animations 
+      no-label-float 
+      on-iron-select="_onAccountSelect">
+      <div slot="dropdown-trigger" alt="account selector" class="account-selector-button">
+        <template is="dom-if" if="[[!_isAccountSelected]]">
+          <account-item name="Select Account"></account-item>
+        </template>
+        <template is="dom-if" if="[[_isAccountSelected]]">
+          <account-item
+            account-id="[[_selectedAccount.id]]"  
+            balance="[[_selectedAccount.balance]]" 
+            iban="[[_selectedAccount.iban]]" 
+            name=[[_selectedAccount.name]]
+            joint-account="[[_selectedAccount.jointAccount]]"
+            ></account-item>
+        </template>
+        <iron-icon class="drop-down-arrow" icon="paper-dropdown-menu:arrow-drop-down" suffix slot="suffix"></iron-icon>
+      </div>
+      <paper-listbox slot="dropdown-content" class="dropdown-content">
+        <iron-ajax id="accountsApi" url="../api/accounts.json" handle-as="json" last-response={{_accounts}}>
+        </iron-ajax>
+        <template is="dom-repeat" items="[[_accounts]]">
+          <account-item 
+            account-id="[[item.id]]" 
+            balance="[[item.balance]]" 
+            iban="[[item.iban]]" 
+            name="[[item.name]]"
+            joint-account="[[item.jointAccount]]"
+          ></account-item>
+        </template>
+      </paper-listbox>
+    </paper-menu-button>
+  </template>
+  <script>
+    /**
+     * `account-selector`
+     * A simple polymer component using paper-item to show one transaction item for specific account
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class AccountSelector extends Polymer.Element {
+      static get is() { return 'account-selector'; }
+      _onAccountSelect(e) {
+        this._selectedAccount = e.target.selectedItem.__data;
+        this._isAccountSelected = this._selectedAccount === null ? false : true ;
+      }
+      ready() {
+        super.ready();
+        this.$.accountsApi.generateRequest();
+      }
+      static get properties() {
+        return {
+          _accounts: {
+            type: Array,
+            value: []
+          },
+          _selectedAccount: {
+            type: Object
+          },
+          _isAccountSelected: {
+            type: Boolean,
+            value: false
+          }
+        };
+      }
+    }
+    window.customElements.define(AccountSelector.is, AccountSelector);
+  </script>
+</dom-module>
