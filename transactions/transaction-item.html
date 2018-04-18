@@ -1,25 +1,25 @@
-<link rel="import" href="../../polymer/polymer-element.html">
-<link rel="import" href="../../google-map/google-map.html">
-<link rel="import" href="../../paper-item/paper-item.html">
-<link rel="import" href="../../paper-item/paper-item-body.html">
-<link rel="import" href="../../paper-item/paper-item-shared-styles.html">
-<link rel="import" href="../../paper-card/paper-card.html">
-<link rel="import" href="../../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../../time-display/time-display.html">
-<!-- <script src="../../webcomponentsjs/webcomponents-lite.js"></script> -->
-
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/google-map/google-map.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../bower_components/paper-item/paper-item-shared-styles.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/time-display/time-display.html">
 <dom-module id="transaction-item">
   <template>
     <style is="custom-style" include="paper-item-shared-styles"></style>
     <style>
       /* mobile screen */
 
-      :host, .transaction-item, .lg-hidden {
+      :host,
+      .transaction-item,
+      .lg-hidden {
         display: block;
         width: 100%;
       }
-      
+
       /* desktop */
+
       @media (min-width: 799px) {
         .lg-hidden {
           display: none;
@@ -69,7 +69,7 @@
       }
     </style>
     <paper-card class="transaction-item" id="[[transactionId]]">
-      <paper-item >
+      <paper-item>
         <paper-item-body three-line>
           <div>
             <span class="beneficiary-name">[[company]]</span>
@@ -163,9 +163,8 @@
       }
       _onViewTypeChanged(newValue, oldValue) {
         this.set('_viewTypeClass', (!this.detailView) ? 'lg-hidden' : '');
-        console.log("_viewTypeClass :: ", this._viewTypeClass);
       }
-      
+
       _onTransactionSelected(selectedtransactionId) {
         if (this.detailView) {
           this.set('_isTransactionSelectedClass', 'item-open');

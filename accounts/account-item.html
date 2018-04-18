@@ -1,7 +1,7 @@
-<link rel="import" href="../../polymer/polymer-element.html">
-<link rel="import" href="../../paper-item/paper-item.html">
-<link rel="import" href="../../paper-item/paper-item-body.html">
-<link rel="import" href="../../paper-item/paper-item-shared-styles.html">
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../bower_components/paper-item/paper-item-shared-styles.html">
 
 <dom-module id="account-item">
   <template>
@@ -10,23 +10,25 @@
       :host {
         display: block;
         width: 90%;
-        /* border: 1px solid greenyellow; */
       }
-      
+
       /* desktop */
-       @media (min-width: 799px) {
+
+      @media (min-width: 799px) {
         :host {
           display: block;
           width: 90%;
-          /* border: 1px solid blueviolet; */
         }
       }
-      .negative-balance-color{
+
+      .negative-balance-color {
         color: var(--transaction-item-negative-balance-color);
       }
-      .positive-balance-color{
-        color:var(--transaction-item-positive-balance-color);
+
+      .positive-balance-color {
+        color: var(--transaction-item-positive-balance-color);
       }
+
       .iban-number {
         color: var(--bank-statement-primary-color);
         font-weight: bold;
@@ -87,8 +89,8 @@
           }
         };
       }
-      _onBalanceChanged(newValue, oldValue){
-        this.set('_balanceClass',(newValue<0)?'negative-balance-color':'positive-balance-color');
+      _onBalanceChanged(newValue, oldValue) {
+        this.set('_balanceClass', (newValue < 0) ? 'negative-balance-color' : 'positive-balance-color');
       }
     }
     window.customElements.define(AccountItem.is, AccountItem);

@@ -1,32 +1,23 @@
-<link rel="import" href="../../polymer/polymer-element.html">
-<link rel="import" href="../../polymer/lib/elements/dom-repeat.html">
-<link rel="import" href="../../iron-ajax/iron-ajax.html">
-<link rel="import" href="../../paper-collapse-item/paper-collapse-group.html">
-<link rel="import" href="../../paper-collapse-item/paper-collapse-item.html">
-<link rel="import" href="../../paper-expansion-panel/paper-expansion-panel.html">
-<link rel="import" href="../../paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="transaction-item.html">
 
 <dom-module id="transaction-list">
   <template>
     <style>
-      :host, .lg-hidden {
-        display: block;
-      }
-      .transaction-item{
-        padding :0em;
-      }
-
-      /* .iron-selected > .transaction-header{
-        display: none;
-      }
-      .iron-selected > .transaction-body{
-        display: block;
-      } 
+      :host,
       .lg-hidden {
         display: block;
-      } */
+      }
+
+      .transaction-item {
+        padding: 0em;
+      }
+
       /* desktop */
+
       @media (min-width: 799px) {
         .lg-hidden {
           display: none;
@@ -35,17 +26,9 @@
     </style>
     <paper-listbox on-iron-select="_onTransactionSelect">
       <template is="dom-repeat" items="[[_transactions]]" as="transaction">
-        <transaction-item class="transaction-item"
-          transaction-id="[[transaction.id]]"
-          selected-transaction={{_selectedTransaction}} 
-          longitude="[[transaction.longitude]]" 
-          date="[[transaction.date]]"
-          latitude="[[transaction.latitude]]" 
-          amount="[[transaction.amount]]" 
-          company="[[transaction.company]]"
-          address="[[transaction.address]]" 
-          picture="[[transaction.picture]]"
-          ></transaction-item>
+        <transaction-item class="transaction-item" transaction-id="[[transaction.id]]" selected-transaction={{_selectedTransaction}}
+          longitude="[[transaction.longitude]]" date="[[transaction.date]]" latitude="[[transaction.latitude]]" amount="[[transaction.amount]]"
+          company="[[transaction.company]]" address="[[transaction.address]]" picture="[[transaction.picture]]"></transaction-item>
       </template>
     </paper-listbox>
     <iron-ajax id="transactionApi" url=[[apiUrl]] handle-as="json" last-response={{_transactions}} debounce-duration="300"></iron-ajax>
@@ -74,24 +57,15 @@
           },
           _selectedTransaction: {
             type: Object,
-            notify:true
+            notify: true
           }
-          // ,
-          // _isTransactionSelected: {
-          //   type: Boolean,
-          //   value: false
-          // }
         };
       }
       _onTransactionApiUrlChanged(newValue, oldValue) {
-        console.log("transaction-list _onTransactionApiUrlChanged :: ");
         this.$.transactionApi.generateRequest();
       }
       _onTransactionSelect(ironSelectEvent) {
-        console.log("transaction-list _onTransactionSelect :: ");
-        this.set('_selectedTransaction',ironSelectEvent.detail.item.__data);
-        console.log("transaction-list _selectedTransaction :_onTransactionSelect: ",this._selectedTransaction);
-        
+        this.set('_selectedTransaction', ironSelectEvent.detail.item.__data);
       }
     }
     window.customElements.define(TransactionList.is, TransactionList);
