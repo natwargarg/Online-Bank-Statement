@@ -23,4 +23,11 @@ $ polymer test
 ```
 
 Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
-![alt text](https://raw.githubusercontent.com/natwargarg/Online-Bank-Statement/master/img/mobile-view1.jpg)
+
+-------- MOBILE VIEW ---------
+![mobile view 1](https://raw.githubusercontent.com/natwargarg/Online-Bank-Statement/master/img/mobile-view1.jpg)
+![mobile view 2](https://raw.githubusercontent.com/natwargarg/Online-Bank-Statement/master/img/mobile-view2.jpg)
+![mobile view 3](https://raw.githubusercontent.com/natwargarg/Online-Bank-Statement/master/img/mobile-view3.jpg)
+
+-------- DESKTOP VIEW ---------
+![desktop view](https://raw.githubusercontent.com/natwargarg/Online-Bank-Statement/master/img/desktop-view.jpg)
