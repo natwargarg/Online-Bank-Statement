@@ -1,4 +1,4 @@
-# \<transaction-list\>
+# Online Bank Statements App
 
 A simple polymer component to show list of transaction for specific account
 
